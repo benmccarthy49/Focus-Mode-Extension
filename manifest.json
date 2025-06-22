@@ -1,7 +1,31 @@
-"manifest_version": 3,
-"name": "Focus Mode Extension",
-"version": "1.0",
-"description": "Removes distractions from your browser",
-"action":{
-    "default_popup": "popup.html",
-},
+{
+    "name": "Focus Mode Extension",
+    "manifest_version": 3,
+    "version": "1.0",
+    "description": "Removes distractions from your browser",
+    "action": {
+        "default_icon": {
+            "16": "focusIcon.png",
+            "32": "focusIcon.png",
+            "64": "focusIcon.png"
+        },
+        "default_popup": "popup.html",
+        "default_title": "Focus Mode"
+    },
+    "permissions": [
+        "storage",
+        "declarativeNetRequest"
+    ],
+    "host_permissions": [
+        "*://www.bbc.co.uk/*", "*://bbc.co.uk/*"
+    ],
+    "declarative_net_request": {
+        "rule_resources": [
+            {
+                "id": "ruleset_1",
+                "enabled": true,
+                "path": "rules.json"
+            }
+        ]
+    }
+}
