@@ -17,7 +17,7 @@
         "declarativeNetRequest"
     ],
     "host_permissions": [
-        "*://www.bbc.co.uk/*", "*://bbc.co.uk/*"
+        "*://www.bbc.co.uk/*", "*://bbc.co.uk/*", "*://skysports.com/*", "*://www.skysports.com/*"
     ],
     "declarative_net_request": {
         "rule_resources": [

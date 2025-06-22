@@ -7,5 +7,14 @@
             "urlFilter": "bbc.co.uk",
             "resourceTypes": ["main_frame"]
         }
+    },
+    {
+        "id": 2,
+        "priority": 2,
+        "action": {"type": "block"},
+        "condition": {
+            "urlFilter": "skysports.com",
+            "resourceTypes": ["main_frame"]
+        }
     }
 ]
