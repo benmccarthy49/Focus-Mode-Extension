@@ -10,10 +10,16 @@
             "64": "focusIcon.png"
         },
         "default_popup": "popup.html",
-        "default_title": "Focus Mode"
+        "default_title": "Focus Mode",
+        "default_state": "disabled"
+    },
+    "background": {
+        "service_worker": "background.js"
     },
     "permissions": [
         "storage",
+        "activeTab",
+        "scripting",
         "declarativeNetRequest"
     ],
     "host_permissions": [
@@ -27,5 +33,11 @@
                 "path": "rules.json"
             }
         ]
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://youtube.com/*"],
+            "js": ["contentScript.js"]
+        }
+    ]
 }
