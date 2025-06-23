@@ -1,7 +1,9 @@
-document.getElementById("add").onclick = () => {
-  chrome.runtime.sendMessage({ method: "add" });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("add").onclick = () => {
+    chrome.runtime.sendMessage({ method: "add" });
+  };
 
-document.getElementById("remove").onclick = () => {
-  chrome.runtime.sendMessage({ method: "remove" });
-}
+  document.getElementById("remove").onclick = () => {
+    chrome.runtime.sendMessage({ method: "remove" });
+  };
+});

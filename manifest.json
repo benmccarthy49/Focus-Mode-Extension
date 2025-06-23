@@ -4,14 +4,13 @@
     "version": "1.0",
     "description": "Removes distractions from your browser",
     "action": {
+        "default_popup": "popup.html",
         "default_icon": {
             "16": "focusIcon.png",
             "32": "focusIcon.png",
             "64": "focusIcon.png"
         },
-        "default_popup": "popup.html",
-        "default_title": "Focus Mode",
-        "default_state": "disabled"
+        "default_title": "Focus Mode"
     },
     "background": {
         "service_worker": "background.js"
