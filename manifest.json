@@ -6,9 +6,9 @@
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "16": "focusIcon.png",
-            "32": "focusIcon.png",
-            "64": "focusIcon.png"
+            "16": "icons/focusIcon.png",
+            "32": "icons/focusIcon.png",
+            "64": "icons/focusIcon.png"
         },
         "default_title": "Focus Mode"
     },

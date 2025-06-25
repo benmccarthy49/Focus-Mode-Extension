@@ -1,3 +1,23 @@
 body{
-    background-color: aqua;
+    background-color: lightgray;
+}
+
+#addSection{
+    width: 120px;
+    height: 80px;
+}
+
+#removeSection{
+    width: 120px;
+    height: 80px;
+}
+
+#removeIcon{
+    width: 50%;
+    height: 50%;
+}
+
+#addIcon{
+    width: 50%;
+    height: 50%;
 }
