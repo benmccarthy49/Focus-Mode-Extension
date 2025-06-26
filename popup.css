@@ -1,5 +1,21 @@
 body{
-    background-color: lightgray;
+    background-color: #1e1e2f;
+}
+
+p{
+    color: #ffffff;
+}
+
+button{
+    background-color: #5eead4;
+}
+
+button:hover{
+    background-color: #2dd4bf;
+}
+
+form {
+  width: 50%;
 }
 
 #addSection{
