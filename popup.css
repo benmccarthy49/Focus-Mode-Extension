@@ -8,10 +8,12 @@ p{
 
 button{
     background-color: #5eead4;
+    border-radius: 8px;
 }
 
 button:hover{
     background-color: #2dd4bf;
+    border-radius: 8px;
 }
 
 form {
