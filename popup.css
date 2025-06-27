@@ -1,5 +1,12 @@
 body{
     background-color: #1e1e2f;
+    width: 250px
+}
+
+h1{
+    color: #ffffff;
+    font-size: 18px;
+    align-content: center;
 }
 
 p{
@@ -30,27 +37,61 @@ form {
     border-radius: 8px;
 }
 
+/* Different div properties */
+#titleDiv{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #addSection{
-    width: 120px;
-    height: 80px;
+    width: 80%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
 }
 
 #removeSection{
-    width: 120px;
-    height: 80px;
+    width: 80%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
 }
 
+#timerSection{
+    width: 80%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
+}
+
+/* Properties for the icons */
 #removeIcon{
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
 }
 
 #addIcon{
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
 }
 
 #timerIcon{
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
 }
+

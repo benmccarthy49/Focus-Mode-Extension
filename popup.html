@@ -7,21 +7,23 @@
         <script src="popup.js"></script>
     </head>
     <body>
-        <p>
-            Focus Mode!
-        </p>  
+        <div id="titleDiv">
+            <h1>
+                Focus Mode!
+            </h1>  
+        </div>
         <p id="timeLeft"></p>
         <div id="addSection">
-            <button id="add">add</button>      
             <img src="icons/sleekAdd.png" id="addIcon">
+            <button id="add">Add</button>      
         </div>
         <div id="removeSection">
-            <button id="remove">remove</button>
             <img src="icons/sleekRemove.png" id="removeIcon">
+            <button id="remove">Remove</button>
         </div>
         <div id="timerSection">
-            <button id="timer">Set Timer</button>
             <img src="icons/sleekTimer.png" id="timerIcon">
+            <button id="timer">Set Timer</button>
             <form name="popup" id="popup" style="display: none;">
                 <input type="time" id="selectTime">
                 <button id="1min">1 Minute</button>
