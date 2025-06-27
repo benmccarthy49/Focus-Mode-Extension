@@ -18,4 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
       text.style.display = "none";
     }
   }
+  
+  document.getElementById("timeLeft").innerHTML = now;
+
+  const timeEntered = document.getElementById("selectTime")
+
+  timeEntered.addEventListener("keydown", function(event){
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const time = timeEntered.value;
+      document.getElementById("timeLeft").innerHTML = time;
+      console.log("Selected time:",time);
+    }
+  });
 });
