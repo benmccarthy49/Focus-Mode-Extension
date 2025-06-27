@@ -1,14 +1,34 @@
 var now = new Date().getTime();
 
-
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("add").onclick = () => {
     chrome.runtime.sendMessage({ method: "add" });
+    addPopup()
   };
+
+  // This function makes the popup for where users can enter what websites they want to block appear
+  function addPopup(){
+    var websiteToBlock = document.getElementById("addPopup");
+    if(websiteToBlock.style.display === "none"){
+      websiteToBlock.style.display = "block";
+    } else {
+      websiteToBlock.style.display = "none";
+    }
+  }
 
   document.getElementById("remove").onclick = () => {
     chrome.runtime.sendMessage({ method: "remove" });
+    removePopup();
   };
+
+  function removePopup(){
+    var websiteToRemove = document.getElementById("removePopup");
+    if(websiteToRemove.style.display === "none"){
+      websiteToRemove.style.display = "block";
+    } else {
+      websiteToRemove.style.display = "none";
+    }
+  }
 
   document.getElementById("timer").onclick = () => {
     var text = document.getElementById("popup");
