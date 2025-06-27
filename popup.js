@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       text.style.display = "none";
     }
-  }
+  };
   
   document.getElementById("timeLeft").innerHTML = now;
 
@@ -31,5 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("timeLeft").innerHTML = time;
       console.log("Selected time:",time);
     }
+  });
+
+  document.getElementById("1min").addEventListener("click", function(event){
+    event.preventDefault(); 
+    document.getElementById("timeLeft").innerHTML = "Time Left: 1" ;
+  });
+
+  
+  document.getElementById("2mins").addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById("timeLeft").innerHTML = "Time Left: 2" ;
   });
 });
