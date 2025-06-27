@@ -20,6 +20,16 @@ form {
   width: 50%;
 }
 
+#selectTime{
+    background-color: #5eead4;
+    border-radius: 8px;
+}
+
+#selectTime:hover{
+    background-color: #2dd4bf;
+    border-radius: 8px;
+}
+
 #addSection{
     width: 120px;
     height: 80px;
