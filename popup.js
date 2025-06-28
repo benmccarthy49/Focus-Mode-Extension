@@ -1,4 +1,7 @@
 var now = new Date().getTime();
+let startingTime = 0;
+let time = startingTime * 60;
+
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("add").onclick = () => {
@@ -53,14 +56,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function updateCountdown(){
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}` 
+    time--;
+  }
+
+  setInterval(updateCountdown, 1000);
+
   document.getElementById("1min").addEventListener("click", function(event){
     event.preventDefault(); 
-    document.getElementById("timeLeft").innerHTML = "Time Left: 1" ;
+    startingTime = 1;
+    time = startingTime * 60;
   });
 
   
   document.getElementById("2mins").addEventListener("click", function(event){
     event.preventDefault();
-    document.getElementById("timeLeft").innerHTML = "Time Left: 2" ;
+    startingTime = 2;
+    time = startingTime * 60;
   });
+
+  document.getElementById("5mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 5;
+    time = startingTime * 60;
+  });
+
+  document.getElementById("10mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 10;
+    time = startingTime * 60;
+  });
+
+  document.getElementById("20mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 20;
+    time = startingTime * 60;
+  })
 });
