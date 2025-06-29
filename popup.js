@@ -1,6 +1,7 @@
 var now = new Date().getTime();
 let startingTime = 0;
 let time = startingTime * 60;
+let countdownInterval = null;
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,58 +64,75 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}` 
     if (time > 0){
       time--;
+    } else{
+      clearInterval(countdownInterval);
     }
   }
 
-  setInterval(updateCountdown, 1000);
-  
   
   document.getElementById("1min").addEventListener("click", function(event){
     event.preventDefault(); 
     startingTime = 1;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
-
+  
   
   document.getElementById("2mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 2;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
   
   document.getElementById("5mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 5;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
   
   document.getElementById("10mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 10;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
-
+  
   document.getElementById("20mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 20;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
-
+  
   document.getElementById("30mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 30;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
-
+  
   document.getElementById("45mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 45;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
   });
-
+  
   document.getElementById("60mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 60;
     time = startingTime * 60;
+    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+  });
+  
+  document.getElementById("startTimer").addEventListener("click", function(event){
+    event.preventDefault();
+    if (countdownInterval) {
+    clearInterval(countdownInterval);
+    }
+
+    countdownInterval = setInterval(updateCountdown, 1000);
   });
 });
