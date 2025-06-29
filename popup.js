@@ -129,8 +129,15 @@ document.addEventListener("DOMContentLoaded", () => {
   
   document.getElementById("startTimer").addEventListener("click", function(event){
     event.preventDefault();
+
+    var addSection = document.getElementById("addSection");
+    addSection.style.display = 'none';
+
+    var removeSection = document.getElementById("removeSection");
+    removeSection.style.display = 'none';
+
     if (countdownInterval) {
-    clearInterval(countdownInterval);
+      clearInterval(countdownInterval);
     }
 
     countdownInterval = setInterval(updateCountdown, 1000);

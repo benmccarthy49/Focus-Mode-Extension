@@ -1,6 +1,6 @@
 body{
     background-color: #1e1e2f;
-    width: 250px
+    width: 300px
 }
 
 h1{
@@ -23,9 +23,6 @@ button:hover{
     border-radius: 8px;
 }
 
-form {
-  width: 50%;
-}
 
 #selectTime{
     background-color: #5eead4;
@@ -77,6 +74,7 @@ form {
 }
 
 #timerSection{
+    text-align: center;
     width: 80%;
     height: 30%;
     display: flex;
@@ -85,6 +83,18 @@ form {
     margin: auto;
     padding: 10px;
 }
+
+#timerControl{
+    display: flex;
+    text-align: center;
+    width: 80%;
+    height: 30%;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 10px;
+}
+
 
 /* Properties for the icons */
 #removeIcon{
