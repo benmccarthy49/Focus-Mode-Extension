@@ -61,11 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let seconds = time % 60;
 
     document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}` 
-    time--;
+    if (time > 0){
+      time--;
+    }
   }
 
   setInterval(updateCountdown, 1000);
-
+  
+  
   document.getElementById("1min").addEventListener("click", function(event){
     event.preventDefault(); 
     startingTime = 1;
@@ -78,13 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 2;
     time = startingTime * 60;
   });
-
+  
   document.getElementById("5mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 5;
     time = startingTime * 60;
   });
-
+  
   document.getElementById("10mins").addEventListener("click", function(event){
     event.preventDefault();
     startingTime = 10;
