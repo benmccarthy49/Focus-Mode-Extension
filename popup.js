@@ -98,5 +98,23 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     startingTime = 20;
     time = startingTime * 60;
-  })
+  });
+
+  document.getElementById("30mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 30;
+    time = startingTime * 60;
+  });
+
+  document.getElementById("45mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 45;
+    time = startingTime * 60;
+  });
+
+  document.getElementById("60mins").addEventListener("click", function(event){
+    event.preventDefault();
+    startingTime = 60;
+    time = startingTime * 60;
+  });
 });
