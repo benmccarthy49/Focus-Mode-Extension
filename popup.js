@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("5mins").addEventListener("click", function(event){
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("10mins").addEventListener("click", function(event){
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("20mins").addEventListener("click", function(event){
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("30mins").addEventListener("click", function(event){
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("45mins").addEventListener("click", function(event){
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
   
   document.getElementById("60mins").addEventListener("click", function(event){
@@ -140,21 +140,28 @@ document.addEventListener("DOMContentLoaded", () => {
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "block";
+    timeLeftSection.style.display = "flex";
   });
-  
+
+  // This function is for starting the timer
   document.getElementById("startTimer").addEventListener("click", function(event){
     event.preventDefault();
 
     var addSection = document.getElementById("addSection");
-    addSection.style.display = 'none';
+    addSection.style.display = "none";
 
     var removeSection = document.getElementById("removeSection");
-    removeSection.style.display = 'none';
+    removeSection.style.display = "none";
+
+    var timerSection = document.getElementById("timerSection");
+    timerSection.style.display = "none";
 
     if (countdownInterval) {
       clearInterval(countdownInterval);
     }
+
+    var text = document.getElementById("popup")
+    text.style.display = "none";
 
     countdownInterval = setInterval(updateCountdown, 1000);
   });
