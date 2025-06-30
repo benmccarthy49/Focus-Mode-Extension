@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // This function adds the functionality to each of the different time buttons
   function addTimeButton(buttonName, amountOfTime){
     document.getElementById(buttonName).addEventListener("click", function(event){
     event.preventDefault(); 
