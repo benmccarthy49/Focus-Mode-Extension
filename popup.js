@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 1;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   
@@ -83,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 2;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("5mins").addEventListener("click", function(event){
@@ -90,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 5;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("10mins").addEventListener("click", function(event){
@@ -97,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 10;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("20mins").addEventListener("click", function(event){
@@ -104,6 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 20;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("30mins").addEventListener("click", function(event){
@@ -111,6 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 30;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("45mins").addEventListener("click", function(event){
@@ -118,6 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 45;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("60mins").addEventListener("click", function(event){
@@ -125,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startingTime = 60;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
+    var timeLeftSection = document.getElementById("timeLeftSection")
+    timeLeftSection.style.display = "block";
   });
   
   document.getElementById("startTimer").addEventListener("click", function(event){
