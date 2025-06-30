@@ -67,81 +67,34 @@ document.addEventListener("DOMContentLoaded", () => {
     } else{
       clearInterval(countdownInterval);
     }
+
+    if(time == 0){
+      document.getElementById("addSection").style.display = "flex";
+      document.getElementById("removeSection").style.display = "flex";
+      document.getElementById("timerSection").style.display = "flex";
+      document.getElementById("timeLeftSection").style.display = "none";
+    }
   }
 
-  
-  document.getElementById("1min").addEventListener("click", function(event){
+  function addTimeButton(buttonName, amountOfTime){
+    document.getElementById(buttonName).addEventListener("click", function(event){
     event.preventDefault(); 
-    startingTime = 1;
+    startingTime = amountOfTime;
     time = startingTime * 60;
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  
-  document.getElementById("2mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 2;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("5mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 5;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("10mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 10;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("20mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 20;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("30mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 30;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("45mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 45;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
-  
-  document.getElementById("60mins").addEventListener("click", function(event){
-    event.preventDefault();
-    startingTime = 60;
-    time = startingTime * 60;
-    document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
-    var timeLeftSection = document.getElementById("timeLeftSection")
-    timeLeftSection.style.display = "flex";
-  });
+    document.getElementById("timeLeftSection").style.display = "flex";
+    document.getElementById("startTimer").style.display = "flex";
+    });  
+  }
+
+  addTimeButton("1min", 1);
+  addTimeButton("2mins", 2);
+  addTimeButton("5mins", 5);
+  addTimeButton("10mins", 10);
+  addTimeButton("20mins", 20);
+  addTimeButton("30mins", 30);
+  addTimeButton("45mins", 45);
+  addTimeButton("60mins", 60);
 
   // This function is for starting the timer
   document.getElementById("startTimer").addEventListener("click", function(event){
@@ -164,5 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     text.style.display = "none";
 
     countdownInterval = setInterval(updateCountdown, 1000);
+
+    document.getElementById("startTimer").style.display = "none";
   });
 });
