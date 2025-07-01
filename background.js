@@ -1,36 +1,29 @@
 console.log("Service worker loaded correctly");
-const rule1 =
-{
-  "id": 1,
-  "action": {
-    "type": "block"
-  },
-  "condition": {
-    "urlFilter": "bbc.co.uk",
-    "resourceTypes": ["main_frame"]
-  }
-};
 
-const rule2 = 
-{
-  "id": 2,
-  "action": {
-    "type": "block"
-  },
-  "condition": {
-    "urlFilter": "skysports.com",
-    "resourceTypes": ["main_frame"]
-  }
-};
+const rules = [];
 
 chrome.runtime.onMessage.addListener((message) => {
-  if (message.method === "add") {
+  if (message.method === "add" && message.url) {
+
+    const newRule = {
+      "id" : rules.length + 1,
+      "action": {
+        "type": "block"
+      },
+      "condition": {
+      "urlFilter": message.url,
+      "resourceTypes": ["main_frame"]
+      }
+    };
+
+    rules.push(newRule);
+
     chrome.declarativeNetRequest.updateDynamicRules({ 
-      removeRuleIds: [1, 2]
+      removeRuleIds: rules.map(r => r.id)
     })
     .then(() => {
       return chrome.declarativeNetRequest.updateDynamicRules({
-        addRules: [rule1, rule2]
+        addRules: rules
       });
     })
       .then(() => console.log("Rule added"))
@@ -42,4 +35,5 @@ chrome.runtime.onMessage.addListener((message) => {
       .catch((err) => console.error("Failed to remove rule:", err));
   }
 });
+
 

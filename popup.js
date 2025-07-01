@@ -2,11 +2,11 @@ var now = new Date().getTime();
 let startingTime = 0;
 let time = startingTime * 60;
 let countdownInterval = null;
+const blockedURLs = [];
 
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("add").onclick = () => {
-    chrome.runtime.sendMessage({ method: "add" });
     addPopup()
   };
 
@@ -74,9 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
           urlEntered.style.outline = "";
         }, 1000);
       }
-      console.log("url entered");
-      parseValidURL(urlEntered.value);
+      let parsedURL = parseValidURL(urlEntered.value);
+      blockedURLs.push(parsedURL);
+      addToDatalist();
       urlEntered.value = "";
+
+      chrome.runtime.sendMessage({ method: "add", url: parsedURL });
     }
   });
 
@@ -94,8 +97,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isValidURL(urlString)){
       const parsedUrl = new URL(urlString);
       console.log(parsedUrl.hostname); 
+      return parsedUrl
     }
 }
+// This function adds all the blocked urls to the drop down menu for choosing a url to remove from the blocked list
+  function addToDatalist(){
+    const datalist = document.getElementById("blockedURLs");
+
+    blockedURLs.forEach(url => {
+      const option = document.createElement("option");
+      option.value = url;
+      datalist.appendChild(option);
+    });
+  }
 
   function updateCountdown(){
     const minutes = Math.floor(time / 60);
