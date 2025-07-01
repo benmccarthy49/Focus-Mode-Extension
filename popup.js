@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     addPopup()
   };
 
+  document.getElementById("remove").onclick = () => {
+    chrome.runtime.sendMessage({ method: "remove" });
+    removePopup();
+  };
+
   // This function makes the popup for where users can enter what websites they want to block appear
   function addPopup(){
     var websiteToBlock = document.getElementById("addPopup");
@@ -19,11 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
       websiteToBlock.style.display = "none";
     }
   }
-
-  document.getElementById("remove").onclick = () => {
-    chrome.runtime.sendMessage({ method: "remove" });
-    removePopup();
-  };
 
   function removePopup(){
     var websiteToRemove = document.getElementById("removePopup");
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   document.getElementById("timeLeft").innerHTML = now;
 
-  const timeEntered = document.getElementById("selectTime")
+  const timeEntered = document.getElementById("selectTime");
 
   timeEntered.addEventListener("keydown", function(event){
     if (event.key === "Enter") {
@@ -56,6 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Selected time:",time);
     }
   });
+
+  const urlEntered = document.getElementById("addPopup");
+
+  urlEntered.addEventListener("keydown", function(event){
+    if (event.key === "Enter"){
+      event.preventDefault();
+
+      if(isValidURL(urlEntered.value)){
+        urlEntered.value = "";
+      }
+      
+    }
+  });
+
+  function isValidURL(urlString){
+    return URL.canParse(urlString);
+  }
 
   function updateCountdown(){
     const minutes = Math.floor(time / 60);
