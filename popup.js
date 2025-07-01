@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
       if(isValidURL(urlEntered.value)){
-        urlEntered.value = "";
         urlEntered.style.outline = "3px solid #2ecc71";
         setTimeout(() => {
           urlEntered.style.outline = "";
@@ -75,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
           urlEntered.style.outline = "";
         }, 1000);
       }
-      
+      console.log("url entered");
+      parseValidURL(urlEntered.value);
+      urlEntered.value = "";
     }
   });
 
@@ -88,6 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function isValidURL(urlString){
     return URL.canParse(urlString);
   }
+
+  function parseValidURL(urlString){
+    if (isValidURL(urlString)){
+      const parsedUrl = new URL(urlString);
+      console.log(parsedUrl.hostname); 
+    }
+}
 
   function updateCountdown(){
     const minutes = Math.floor(time / 60);
