@@ -1,12 +1,13 @@
 console.log("Service worker loaded correctly");
 
 const rules = [];
+let nextRuleId = 1;
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.method === "add" && message.url) {
 
     const newRule = {
-      "id" : rules.length + 1,
+      "id" : nextRuleId++,
       "action": {
         "type": "block"
       },
@@ -35,5 +36,7 @@ chrome.runtime.onMessage.addListener((message) => {
       .catch((err) => console.error("Failed to remove rule:", err));
   }
 });
+
+console.log(rules);
 
 

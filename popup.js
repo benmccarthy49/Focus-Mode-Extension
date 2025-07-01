@@ -77,9 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let parsedURL = parseValidURL(urlEntered.value);
       blockedURLs.push(parsedURL);
       addToDatalist();
-      urlEntered.value = "";
-
       chrome.runtime.sendMessage({ method: "add", url: parsedURL });
+      urlEntered.value = "";
     }
   });
 
