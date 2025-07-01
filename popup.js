@@ -65,8 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if(isValidURL(urlEntered.value)){
         urlEntered.value = "";
+        urlEntered.style.outline = "3px solid #2ecc71";
+        setTimeout(() => {
+          urlEntered.style.outline = "";
+        }, 1000);
+      } else{
+        urlEntered.style.outline = "3px solid red";
+        setTimeout(() => {
+          urlEntered.style.outline = "";
+        }, 1000);
       }
       
+    }
+  });
+
+  urlEntered.addEventListener("keydown", function(event){
+    if (event.key === "Enter"){
+      event.preventDefault();
     }
   });
 
