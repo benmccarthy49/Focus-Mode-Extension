@@ -12,6 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("remove").onclick = () => {
     chrome.runtime.sendMessage({ method: "remove" });
+    chrome.runtime.sendMessage({ method: "getRules" }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("Error getting rules:", chrome.runtime.lastError);
+      } else {
+        console.log("Rules received from background:", response.rules);
+        addToDatalist(response.rules);
+      }
+    });
     removePopup();
   };
 
@@ -76,15 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       let parsedURL = parseValidURL(urlEntered.value);
       blockedURLs.push(parsedURL);
-      addToDatalist();
       chrome.runtime.sendMessage({ method: "add", url: parsedURL });
       urlEntered.value = "";
     }
   });
 
-  urlEntered.addEventListener("keydown", function(event){
+  document.getElementById("removePopup").addEventListener("keydown", function(event){
     if (event.key === "Enter"){
       event.preventDefault();
+      document.getElementById("removePopup").style.outline = "3px solid #2ecc71";
     }
   });
 
@@ -100,13 +108,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 }
 // This function adds all the blocked urls to the drop down menu for choosing a url to remove from the blocked list
-  function addToDatalist(){
+  function addToDatalist(rules){
     const datalist = document.getElementById("blockedURLs");
+    datalist.innerHTML = "";
 
-    blockedURLs.forEach(url => {
-      const option = document.createElement("option");
-      option.value = url;
-      datalist.appendChild(option);
+    rules.forEach(rule => {
+      const url = rule.condition?.urlFilter;
+      if(url){
+        const option = document.createElement("option");
+        option.value = url;
+        datalist.appendChild(option);
+      }
     });
   }
 
