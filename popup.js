@@ -2,7 +2,6 @@ var now = new Date().getTime();
 let startingTime = 0;
 let time = startingTime * 60;
 let countdownInterval = null;
-const blockedURLs = [];
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.getElementById("remove").onclick = () => {
-    chrome.runtime.sendMessage({ method: "remove" });
     chrome.runtime.sendMessage({ method: "getRules" }, (response) => {
       if (chrome.runtime.lastError) {
         console.error("Error getting rules:", chrome.runtime.lastError);
@@ -22,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     removePopup();
   };
-
+  
   // This function makes the popup for where users can enter what websites they want to block appear
   function addPopup(){
     var websiteToBlock = document.getElementById("addPopup");
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       websiteToBlock.style.display = "none";
     }
   }
-
+  
   function removePopup(){
     var websiteToRemove = document.getElementById("removePopup");
     if(websiteToRemove.style.display === "none"){
@@ -41,20 +39,20 @@ document.addEventListener("DOMContentLoaded", () => {
       websiteToRemove.style.display = "none";
     }
   }
-
+  
   document.getElementById("timer").onclick = () => {
     var text = document.getElementById("popup");
     if (text.style.display === "none") {
-    text.style.display = "block";
+      text.style.display = "block";
     } else {
       text.style.display = "none";
     }
   };
   
   document.getElementById("timeLeft").innerHTML = now;
-
+  
   const timeEntered = document.getElementById("selectTime");
-
+  
   timeEntered.addEventListener("keydown", function(event){
     if (event.key === "Enter") {
       event.preventDefault();
@@ -64,13 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Selected time:",time);
     }
   });
-
+  
   const urlEntered = document.getElementById("addPopup");
-
+  
   urlEntered.addEventListener("keydown", function(event){
     if (event.key === "Enter"){
       event.preventDefault();
-
+      
       if(isValidURL(urlEntered.value)){
         urlEntered.style.outline = "3px solid #2ecc71";
         setTimeout(() => {
@@ -83,16 +81,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
       }
       let parsedURL = parseValidURL(urlEntered.value);
-      blockedURLs.push(parsedURL);
       chrome.runtime.sendMessage({ method: "add", url: parsedURL });
-      urlEntered.value = "";
+      urlEntered.value = ""; // Clearing the input from the input field
     }
   });
-
+  
   document.getElementById("removePopup").addEventListener("keydown", function(event){
     if (event.key === "Enter"){
       event.preventDefault();
-      document.getElementById("removePopup").style.outline = "3px solid #2ecc71";
+      if(isValidURL(document.getElementById("removePopup").value)){
+        document.getElementById("removePopup").style.outline = "3px solid #2ecc71";
+        setTimeout(() => {
+          document.getElementById("removePopup").style.outline = "";
+        }, 1000);
+      } else{
+        document.getElementById("removePopup").style.outline = "3px solid red";
+        setTimeout(() => {
+          document.getElementById("removePopup").style.outline = "";
+        }, 1000);
+      }
+      chrome.runtime.sendMessage({ method: "remove" });
+      document.getElementById("removePopup").value = ""; // Clearing the input from the input field
     }
   });
 
