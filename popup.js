@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("removePopup").style.outline = "";
         }, 1000);
       }
-      chrome.runtime.sendMessage({ method: "remove" });
+      let urlToUnblock = document.getElementById("removePopup").value;
+      chrome.runtime.sendMessage({ method: "remove", url: urlToUnblock});
       document.getElementById("removePopup").value = ""; // Clearing the input from the input field
     }
   });
