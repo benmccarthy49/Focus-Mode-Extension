@@ -1,72 +1,94 @@
 console.log("Service worker loaded correctly");
 
-const rules = [];
+let rules = [];
 let nextRuleId = 1;
 
-chrome.declarativeNetRequest.getDynamicRules()
-  .then((existingRules) => {
-    const existingIds = existingRules.map(rule => rule.id);
-    let maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
-    nextRuleId = maxId + 1;
-    console.log(rules);
+// Load rules from storage on startup
+chrome.storage.local.get(["rules"], (result) => {
+  console.log("Result =", result);
+  rules = result.rules || [];
+  console.log(rules);
+  const existingIds = rules.map(rule => rule.id);
+  const maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
+  nextRuleId = maxId + 1;
 
-    chrome.runtime.onMessage.addListener((message) => {
-      if (message.method === "add" && message.url) {
-        const newRule = {
-          id: nextRuleId,
-          action: { type: "block" },
-          condition: {
-            urlFilter: message.url,
-            resourceTypes: ["main_frame"]
-          }
-        };
-        
-        chrome.declarativeNetRequest.updateDynamicRules({
-          addRules: [newRule]
-        })
-        .then(() => {
-          console.log("Rule added with ID", nextRuleId);
-          rules.push(newRule);
-          nextRuleId++;
-        })
-        .catch((err) => console.error("Failed to add rule:", err));
-      } 
-      else if (message.method === "remove" && message.url) {
-        const ruleToRemove = rules.find(r => {
-          return r.condition?.urlFilter === message.url;
-        });
-        console.log("Rules array =", rules);
-        console.log("Message url =", message.url);
-        console.log("Rule to remove:", ruleToRemove);
-        if (ruleToRemove){
-          chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: [ruleToRemove.id] })
-          .then(() => console.log("Rule removed:", message.url))
-          .catch((err) => console.error("Failed to remove rule:", err));
-          const index = rules.indexOf(ruleToRemove);
-          if (index > -1){
-          rules.splice(index, 1);
-          }
-          console.log(rules);
-        } else{
-          console.warn("No matching rule found for URL:", message.url);
-        }
-      }
-    });
-  });
-
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.method === "getRules") {
-    chrome.declarativeNetRequest.getDynamicRules()
-      .then((dynamicRules) => {
-        sendResponse({ rules: dynamicRules });
-      })
-      .catch((err) => {
-        console.error("Error getting rules:", err);
-        sendResponse({ rules: [] });
+  // Sync with declarativeNetRequest
+  chrome.declarativeNetRequest.getDynamicRules().then((existingRules) => {
+    const existingRuleIds = existingRules.map(r => r.id);
+    const missingRules = rules.filter(r => !existingRuleIds.includes(r.id));
+    if (missingRules.length > 0) {
+      chrome.declarativeNetRequest.updateDynamicRules({
+        addRules: missingRules
+      }).then(() => {
+        console.log("Synced missing rules to DNR.");
       });
-    return true;
-  }
+    }
+  });
 });
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.method === "add" && message.url) {
+    const newRule = {
+      id: nextRuleId,
+      action: { type: "block" },
+      condition: {
+        urlFilter: message.url,
+        resourceTypes: ["main_frame"]
+      }
+    };
+
+    chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [newRule]
+    }).then(() => {
+      console.log("Rule added with ID", nextRuleId);
+      rules.push(newRule);
+      nextRuleId++;
+      chrome.storage.local.set({ rules }); // Save updated rules
+      console.log("Rule added array =", rules);
+    }).catch(err => console.error("Failed to add rule:", err));
+  }
+
+  else if (message.method === "remove" && message.url) {
+    const ruleToRemove = rules.find(r => r.condition?.urlFilter === message.url);
+    if (ruleToRemove) {
+      chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: [ruleToRemove.id]
+      }).then(() => {
+        console.log("Rule removed:", message.url);
+        rules = rules.filter(r => r.id !== ruleToRemove.id);
+        chrome.storage.local.set({ rules }); // Save updated rules
+        console.log(rules);
+      }).catch(err => console.error("Failed to remove rule:", err));
+    } else {
+      console.log(rules);
+      console.warn("No matching rule found for URL:", message.url);
+    }
+  }
+
+  else if (message.method === "getRules") {
+    chrome.storage.local.get("rules", (result) => {
+      const storedRules = result.rules || [];
+      sendResponse({ rules: storedRules });
+    });
+    return true;
+  }
+
+  else if (message.method === "clear"){
+    chrome.declarativeNetRequest.getDynamicRules()
+     .then((rules) => {
+      const ruleIds = rules.map(rule => rule.id);
+      return chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: ruleIds
+      });
+    })
+      .then(() => {
+        console.log("All dynamic rules cleared.");
+        console.log(rules);
+      })
+      .catch((err) => {
+        console.error("Failed to clear dynamic rules:", err);
+      });
+    }
+});
 
 

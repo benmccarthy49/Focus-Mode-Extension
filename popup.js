@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     removePopup();
   };
+
+  document.getElementById("clear").onclick = () => {
+    chrome.runtime.sendMessage({method: "clear"});
+  }
   
   // This function makes the popup for where users can enter what websites they want to block appear
   function addPopup(){
