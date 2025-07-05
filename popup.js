@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("removeSection").style.display = "flex";
       document.getElementById("timerSection").style.display = "flex";
       document.getElementById("timeLeftSection").style.display = "none";
+      chrome.runtime.sendMessage({method: "stopBlocking"});
     }
   }
 
@@ -179,6 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // This function is for starting the timer
   document.getElementById("startTimer").addEventListener("click", function(event){
     event.preventDefault();
+    chrome.runtime.sendMessage({method: "startCountdown"});
+    // chrome.runtime.sendMessage({method: "startBlocking"});
 
     var addSection = document.getElementById("addSection");
     addSection.style.display = "none";

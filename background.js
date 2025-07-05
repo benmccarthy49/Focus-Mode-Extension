@@ -3,6 +3,29 @@ console.log("Service worker loaded correctly");
 let rules = [];
 let nextRuleId = 1;
 
+function activateRules() {
+  chrome.storage.local.get(["rules"], (result) => {
+    const storedRules = result.rules || [];
+    chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: storedRules,
+      removeRuleIds: [] // Just add
+    }).then(() => {
+      console.log("Focus session started: rules activated");
+    }).catch((err) => console.error("Failed to activate rules:", err));
+  });
+}
+
+function deactivateRules() {
+  chrome.declarativeNetRequest.getDynamicRules().then((currentRules) => {
+    const idsToRemove = currentRules.map(r => r.id);
+    return chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: idsToRemove
+    });
+  }).then(() => {
+    console.log("Focus session ended: rules deactivated");
+  }).catch((err) => console.error("Failed to deactivate rules:", err));
+}
+
 // Load rules from storage on startup
 chrome.storage.local.get(["rules"], (result) => {
   console.log("Result =", result);
