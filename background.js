@@ -112,6 +112,52 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.error("Failed to clear dynamic rules:", err);
       });
     }
+
+    else if (message.method === "startTimer") {
+      console.log("msg recieved");
+      const duration = message.duration 
+      console.log(duration);
+      const startTime = Date.now();
+    
+      chrome.storage.local.set({
+        timer: {
+          isRunning: true,
+          startTime,
+          duration
+        }
+      });
+    
+      // Optional: stop blocking when timer ends
+      setTimeout(() => {
+        deactivateRules();
+        chrome.storage.local.set({ timer: { isRunning: false } });
+      }, duration * 1000);
+    }
+    
+    else if (message.method === "getTimeLeft") {
+      chrome.storage.local.get("timer", ({ timer }) => {
+        if (!timer || !timer.isRunning) {
+          sendResponse({ timeLeft: 0 });
+          return;
+        }
+    
+        const now = Date.now();
+        const endTime = timer.startTime + timer.duration * 1000;
+        const timeLeft = Math.max(0, Math.floor((endTime - now) / 1000));
+        console.log("time left =", timeLeft);
+
+        // const minutes = Math.floor(timeLeft / 60);
+        // let seconds = timeLeft % 60;
+
+        sendResponse({ timeLeft });
+      });
+    
+      return true; // keep message channel open for async `sendResponse`
+    }
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+});
+
 
 

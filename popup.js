@@ -5,6 +5,48 @@ let countdownInterval = null;
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  chrome.runtime.sendMessage({ method: "getTimeLeft" }, (response) => {
+    console.log("response.timeLeft =", response.timeLeft);
+    if (response.timeLeft > 0) {
+      startCountdownFrom(response.timeLeft);
+    } else {
+      updateCountdownUI(0);
+      document.getElementById("addSection").style.display = "flex";
+      document.getElementById("removeSection").style.display = "flex";
+      document.getElementById("timerSection").style.display = "flex";
+      document.getElementById("timeLeftSection").style.display = "none";
+    }
+  });
+
+  function updateCountdownUI(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}`;
+
+    if(time == 0){
+      document.getElementById("addSection").style.display = "flex";
+      document.getElementById("removeSection").style.display = "flex";
+      document.getElementById("timerSection").style.display = "flex";
+      document.getElementById("timeLeftSection").style.display = "none";
+    }
+  }
+
+  function startCountdownFrom(timeLeft) {
+    let time = timeLeft;
+
+    updateCountdownUI(time);
+
+    countdownInterval = setInterval(() => {
+      time--;
+      updateCountdownUI(time);
+
+      if (time <= 0) {
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+  }
+
   document.getElementById("add").onclick = () => {
     addPopup()
   };
@@ -136,25 +178,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function updateCountdown(){
-    const minutes = Math.floor(time / 60);
-    let seconds = time % 60;
+  // function updateCountdown(){
+  //   const minutes = Math.floor(time / 60);
+  //   let seconds = time % 60;
 
-    document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}` 
-    if (time > 0){
-      time--;
-    } else{
-      clearInterval(countdownInterval);
-    }
+  //   document.getElementById("timeLeft").innerHTML = `${minutes}: ${seconds}` 
+  //   if (time > 0){
+  //     time--;
+  //   } else{
+  //     clearInterval(countdownInterval);
+  //   }
 
-    if(time == 0){
-      document.getElementById("addSection").style.display = "flex";
-      document.getElementById("removeSection").style.display = "flex";
-      document.getElementById("timerSection").style.display = "flex";
-      document.getElementById("timeLeftSection").style.display = "none";
-      chrome.runtime.sendMessage({method: "stopBlocking"});
-    }
-  }
+  //   if(time == 0){
+  //     document.getElementById("addSection").style.display = "flex";
+  //     document.getElementById("removeSection").style.display = "flex";
+  //     document.getElementById("timerSection").style.display = "flex";
+  //     document.getElementById("timeLeftSection").style.display = "none";
+  //     chrome.runtime.sendMessage({method: "stopBlocking"});
+  //   }
+  // }
 
   // This function adds the functionality to each of the different time buttons
   function addTimeButton(buttonName, amountOfTime){
@@ -162,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault(); 
     startingTime = amountOfTime;
     time = startingTime * 60;
+    console.log("time =", time);
     document.getElementById("timeLeft").innerHTML = `${startingTime}: ${0}`;
     document.getElementById("timeLeftSection").style.display = "flex";
     document.getElementById("startTimer").style.display = "flex";
@@ -180,9 +223,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // This function is for starting the timer
   document.getElementById("startTimer").addEventListener("click", function(event){
     event.preventDefault();
-    chrome.runtime.sendMessage({method: "startCountdown"});
-    // chrome.runtime.sendMessage({method: "startBlocking"});
+    chrome.runtime.sendMessage({method: "startTimer", duration: time});
+    console.log("start timer msg sent");
 
+    // var addSection = document.getElementById("addSection");
+    // addSection.style.display = "none";
+
+    // var removeSection = document.getElementById("removeSection");
+    // removeSection.style.display = "none";
+
+    // var timerSection = document.getElementById("timerSection");
+    // timerSection.style.display = "none";
+
+    // if (countdownInterval) {
+    //   clearInterval(countdownInterval);
+    // }
+
+    // var text = document.getElementById("popup")
+    // text.style.display = "none";
+
+    // countdownInterval = setInterval(updateCountdown, 1000);
+
+    // document.getElementById("startTimer").style.display = "none";
+  });
+
+  chrome.storage.local.get("timer", ({ timer }) => {
+    if (timer || timer.isRunning) {
     var addSection = document.getElementById("addSection");
     addSection.style.display = "none";
 
@@ -192,15 +258,12 @@ document.addEventListener("DOMContentLoaded", () => {
     var timerSection = document.getElementById("timerSection");
     timerSection.style.display = "none";
 
-    if (countdownInterval) {
-      clearInterval(countdownInterval);
-    }
-
     var text = document.getElementById("popup")
     text.style.display = "none";
 
-    countdownInterval = setInterval(updateCountdown, 1000);
+    document.getElementById("timeLeftSection").style.display = "flex";
 
     document.getElementById("startTimer").style.display = "none";
+    }
   });
 });
