@@ -224,27 +224,28 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("startTimer").addEventListener("click", function(event){
     event.preventDefault();
     chrome.runtime.sendMessage({method: "startTimer", duration: time});
+    startCountdownFrom(time);
     console.log("start timer msg sent");
 
-    // var addSection = document.getElementById("addSection");
-    // addSection.style.display = "none";
+    var addSection = document.getElementById("addSection");
+    addSection.style.display = "none";
 
-    // var removeSection = document.getElementById("removeSection");
-    // removeSection.style.display = "none";
+    var removeSection = document.getElementById("removeSection");
+    removeSection.style.display = "none";
 
-    // var timerSection = document.getElementById("timerSection");
-    // timerSection.style.display = "none";
+    var timerSection = document.getElementById("timerSection");
+    timerSection.style.display = "none";
 
     // if (countdownInterval) {
     //   clearInterval(countdownInterval);
     // }
 
-    // var text = document.getElementById("popup")
-    // text.style.display = "none";
+    var text = document.getElementById("popup")
+    text.style.display = "none";
 
     // countdownInterval = setInterval(updateCountdown, 1000);
 
-    // document.getElementById("startTimer").style.display = "none";
+    document.getElementById("startTimer").style.display = "none";
   });
 
   chrome.storage.local.get("timer", ({ timer }) => {
