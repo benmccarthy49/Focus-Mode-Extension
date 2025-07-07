@@ -97,23 +97,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
-  else if (message.method === "clear"){
-    chrome.declarativeNetRequest.getDynamicRules()
-     .then((rules) => {
-      const ruleIds = rules.map(rule => rule.id);
-      return chrome.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: ruleIds
-      });
-    })
-      .then(() => {
-        console.log("All dynamic rules cleared.");
-        console.log(rules);
-      })
-      .catch((err) => {
-        console.error("Failed to clear dynamic rules:", err);
-      });
-    }
-
     else if (message.method === "startTimer") {
       activateRules();
       console.log("msg recieved");

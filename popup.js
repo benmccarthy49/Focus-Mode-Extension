@@ -1,4 +1,3 @@
-var now = new Date().getTime();
 let startingTime = 0;
 let time = startingTime * 60;
 let countdownInterval = null;
@@ -63,10 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     removePopup();
   };
 
-  document.getElementById("clear").onclick = () => {
-    chrome.runtime.sendMessage({method: "clear"});
-  }
-  
   // This function makes the popup for where users can enter what websites they want to block appear
   function addPopup(){
     var websiteToBlock = document.getElementById("addPopup");
@@ -94,22 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   
-  document.getElementById("timeLeft").innerHTML = now;
-  
-  const timeEntered = document.getElementById("selectTime");
-  
-  timeEntered.addEventListener("keydown", function(event){
-    if (event.key === "Enter") {
-      event.preventDefault();
-
-      const time = timeEntered.value;
-      document.getElementById("timeLeft").innerHTML = time;
-      console.log("Selected time:",time);
-    }
-  });
-  
   const urlEntered = document.getElementById("addPopup");
-  
   urlEntered.addEventListener("keydown", function(event){
     if (event.key === "Enter"){
       event.preventDefault();
