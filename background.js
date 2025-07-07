@@ -16,13 +16,14 @@ function activateRules() {
 }
 
 function deactivateRules() {
-  chrome.declarativeNetRequest.getDynamicRules().then((currentRules) => {
-    const idsToRemove = currentRules.map(r => r.id);
+  chrome.declarativeNetRequest.getDynamicRules().then((rules) => {
+    const idsToRemove = rules.map(r => r.id);
     return chrome.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: idsToRemove
     });
   }).then(() => {
     console.log("Focus session ended: rules deactivated");
+    console.log("Rules deactivated", rules);
   }).catch((err) => console.error("Failed to deactivate rules:", err));
 }
 
@@ -114,6 +115,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 
     else if (message.method === "startTimer") {
+      activateRules();
       console.log("msg recieved");
       const duration = message.duration 
       console.log(duration);
@@ -131,6 +133,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       setTimeout(() => {
         deactivateRules();
         chrome.storage.local.set({ timer: { isRunning: false } });
+        console.log("Rules deactivated and timer not running");
       }, duration * 1000);
     }
     
@@ -138,6 +141,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.storage.local.get("timer", ({ timer }) => {
         if (!timer || !timer.isRunning) {
           sendResponse({ timeLeft: 0 });
+          deactivateRules();
           return;
         }
     
@@ -146,17 +150,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const timeLeft = Math.max(0, Math.floor((endTime - now) / 1000));
         console.log("time left =", timeLeft);
 
-        // const minutes = Math.floor(timeLeft / 60);
-        // let seconds = timeLeft % 60;
-
         sendResponse({ timeLeft });
       });
     
       return true; // keep message channel open for async `sendResponse`
     }
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 
