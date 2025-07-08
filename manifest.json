@@ -20,23 +20,5 @@
         "activeTab",
         "scripting",
         "declarativeNetRequest"
-    ],
-    "host_permissions": [
-        "*://www.bbc.co.uk/*", "*://bbc.co.uk/*", "*://skysports.com/*", "*://www.skysports.com/*"
-    ],
-    "declarative_net_request": {
-        "rule_resources": [
-            {
-                "id": "ruleset_1",
-                "enabled": false,
-                "path": "rules.json"
-            }
-        ]
-    },
-    "content_scripts": [
-        {
-            "matches": ["*://youtube.com/*"],
-            "js": ["contentScript.js"]
-        }
     ]
 }
