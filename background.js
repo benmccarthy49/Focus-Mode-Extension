@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       id: nextRuleId,
       action: { type: "block" },
       condition: {
-        urlFilter: message.url,
+        urlFilter: `||${message.url}^`,
         resourceTypes: ["main_frame"]
       }
     };

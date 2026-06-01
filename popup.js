@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isValidURL(urlString)){
       const parsedUrl = new URL(urlString);
       console.log(parsedUrl.hostname); 
-      return parsedUrl
+      return parsedUrl.hostname;
     }
 }
 // This function adds all the blocked urls to the drop down menu for choosing a url to remove from the blocked list
