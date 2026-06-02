@@ -7,12 +7,18 @@ function normalizeInput(value) {
   const trimmed = value.trim();
   if (!trimmed) return null;
 
+  let hostname = null;
   try {
-    return new URL(trimmed).hostname;
+    hostname = new URL(trimmed).hostname;
   } catch {
-    const cleaned = trimmed.replace(/^https?:\/\//i, "").replace(/^www\./i, "").split("/")[0];
-    return cleaned.match(/^[a-zA-Z0-9.-]+$/) ? cleaned : null;
+    hostname = trimmed.replace(/^https?:\/\//i, "").replace(/^www\./i, "").split("/")[0];
   }
+
+  if (!hostname || !hostname.match(/^[a-zA-Z0-9.-]+$/)) {
+    return null;
+  }
+
+  return hostname.replace(/^www\./i, "");
 }
 
 function setInputFeedback(input, valid) {
