@@ -1,38 +1,37 @@
 <!-- The popup shown when the focus mode button is clicked -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="popup.css">
         <script src="popup.js"></script>
     </head>
     <body>
         <div id="titleDiv">
-            <h1>
-                Focus Mode!
-            </h1>  
+            <h1>Focus Mode</h1>
         </div>
         <div id="timeLeftSection" style="display: none;">
             <p id="timeLeft"></p>
-            <input type="image" id="startTimer" src="icons/start.png" alt="Submit">
+            <input type="image" id="startTimer" src="icons/start.png" alt="Start timer">
         </div>
         <div id="addSection">
-            <div id="topRow">
-                <img src="icons/sleekAdd.png" id="addIcon">
-                <button id="add">Add</button>      
+            <div class="topRow">
+                <img src="icons/sleekAdd.png" id="addIcon" alt="">
+                <button id="add">Add site</button>
             </div>
-            <input type="text" id="addPopup" style="display: none;" placeholder="example.com or https://youtube.com">
+            <input type="text" id="addPopup" style="display: none;" placeholder="example.com">
         </div>
         <div id="removeSection">
-            <div id="topRow">
-                <img src="icons/sleekRemove.png" id="removeIcon">
-                <button id="remove">Remove</button>
+            <div class="topRow">
+                <img src="icons/sleekRemove.png" id="removeIcon" alt="">
+                <button id="remove">Remove site</button>
             </div>
-            <input type="text" id="removePopup" style="display: none;" placeholder="example.com or https://youtube.com" list="blockedURLs">
+            <input type="text" id="removePopup" style="display: none;" placeholder="example.com" list="blockedURLs">
             <datalist id="blockedURLs"></datalist>
         </div>
         <div id="timerSection">
-            <img src="icons/sleekTimer.png" id="timerIcon">
+            <img src="icons/sleekTimer.png" id="timerIcon" alt="">
             <button id="timer">Set Timer</button>
         </div>
         <div id="timerControl">

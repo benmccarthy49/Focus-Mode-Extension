@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("timer").onclick = () => {
     const popup = document.getElementById("popup");
-    popup.style.display = popup.style.display === "none" ? "block" : "none";
+    popup.style.display = popup.style.display === "none" ? "grid" : "none";
   };
 
   const addInput = document.getElementById("addPopup");

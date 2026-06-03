@@ -1,141 +1,164 @@
-body{
+* {
+    box-sizing: border-box;
+}
+
+body {
     background-color: #1e1e2f;
-    width: 300px
-}
-
-h1{
     color: #ffffff;
-    font-size: 18px;
-    align-content: center;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 16px;
+    width: 320px;
 }
 
-p{
+h1,
+p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+button {
+    background-color: #5eead4;
+    border: 0;
+    border-radius: 8px;
+    color: #10201f;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 14px;
+    transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+button:hover {
+    background-color: #2dd4bf;
+    box-shadow: 0 8px 18px rgba(45, 212, 191, 0.18);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(94, 234, 212, 0.45);
+    outline-offset: 2px;
+}
+
+input[type="text"] {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
     color: #ffffff;
-}
-
-button{
-    background-color: #5eead4;
-    border-radius: 8px;
-}
-
-button:hover{
-    background-color: #2dd4bf;
-    border-radius: 8px;
-}
-
-
-#selectTime{
-    background-color: #5eead4;
-    border-radius: 8px;
-}
-
-#selectTime:hover{
-    background-color: #2dd4bf;
-    border-radius: 8px;
-}
-
-/* Different div properties */
-#titleDiv{
+    font: inherit;
+    margin-top: 10px;
+    min-height: 40px;
+    padding: 10px 12px;
     width: 100%;
-    height: 10%;
-    display: flex;
-    justify-content: center;
+}
+
+input[type="text"]::placeholder {
+    color: #94a3b8;
+}
+
+#titleDiv {
     align-items: center;
-}
-
-#timeLeftSection{
-    width: 80%;
-    height: 30%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 10px;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
 }
 
-#addSection{
-    width: 80%;
-    height: 30%;
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    margin: auto;
-    padding: 10px;
-}
-
-#topRow{
-    width: 80%;
-    height: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 10px;
-}
-
-#addPopup{
-    width: 80%;
-    margin: auto;
-    padding: 5px;
-}
-
-#removeSection{
-    width: 80%;
-    height: 30%;
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    margin: auto;
-    padding: 10px;
-}
-
-#removePopup{
-    width: 80%;
-    margin: auto;
-    padding: 5px;
-}
-
-#timerSection{
-    text-align: center;
-    width: 80%;
-    height: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 10px;
-}
-
-#timerControl{
-    display: flex;
-    text-align: center;
-    width: 80%;
-    height: 30%;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 10px;
-}
-
-
-/* Properties for the icons */
-#removeIcon{
-    width: 30%;
-    height: 30%;
-}
-
-#addIcon{
-    width: 30%;
-    height: 30%;
-}
-
-#timerIcon{
-    width: 30%;
-    height: 30%;
-}
-
-#startTimer{
+#focusIcon {
     height: 32px;
     width: 32px;
+}
+
+#addSection,
+#removeSection,
+#timerSection,
+#timeLeftSection,
+#timerControl {
+    width: 100%;
+}
+
+#addSection,
+#removeSection {
+    margin-bottom: 10px;
+}
+
+.topRow,
+#timerSection {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+}
+
+.topRow button,
+#timerSection button {
+    flex: 1;
+}
+
+#removeIcon,
+#addIcon,
+#timerIcon {
+    height: 34px;
+    width: 34px;
+}
+
+#timeLeftSection {
+    align-items: center;
+    background: rgba(94, 234, 212, 0.1);
+    border: 1px solid rgba(94, 234, 212, 0.26);
+    border-radius: 8px;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 12px;
+    padding: 14px;
+}
+
+#timeLeft {
+    color: #5eead4;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+#startTimer {
+    background: #5eead4;
+    border-radius: 8px;
+    cursor: pointer;
+    height: 40px;
+    padding: 9px;
+    transition: background-color 160ms ease, transform 160ms ease;
+    width: 40px;
+}
+
+#startTimer:hover {
+    background: #2dd4bf;
+    transform: translateY(-1px);
+}
+
+#popup {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 12px;
+}
+
+#popup button {
+    min-height: 38px;
+    padding: 8px;
 }
 
